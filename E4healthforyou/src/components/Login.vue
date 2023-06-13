@@ -42,7 +42,7 @@
     methods: {
       async signIn() {
         try {
-           await axios.post('http://localhost:3000/api/login', {
+           await axios.post('http://localhost:3000/api/signup', {
             email: this.email,
             password: this.password,
           });

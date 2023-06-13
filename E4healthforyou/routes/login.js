@@ -1,15 +1,16 @@
 const express = require('express');
 const router = express.Router();
-const LoginUser = require('../Models/loginSchema');
+
+const Signup = require('../Models/userSchema');
 
 // POST /api/login
-router.post('/login', async (req, res) => {
+router.post('/signup', async (req, res) => {
   console.log(req.body)
   const { email, password } = req.body;
 
   try {
     // Check if user exists in the database
-    const user = await LoginUser.findOne({ email });
+    const user = await Signup.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });

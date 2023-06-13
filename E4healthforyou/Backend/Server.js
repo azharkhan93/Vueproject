@@ -6,17 +6,17 @@ const cors = require('cors');
 // const mongoose = require('mongoose');
 const { connectToDatabase } = require('../middleware/db');
 // const Signup = require('../Models/userSchema');
-const login = require('../routes/login');
+ const login = require('../routes/login');
 const signup = require('../routes/signup');
 
 app.use(cors());
 app.use(bodyParser.json());
 
-app.use(session({
-  secret: 'azhar456', // Replace with a secure secret key
-  resave: false,
-  saveUninitialized: true,
-}));
+// app.use(session({
+//   secret: 'azhar456', // Replace with a secure secret key
+//   resave: false,
+//   saveUninitialized: true,
+// }));
 
 connectToDatabase();
 
