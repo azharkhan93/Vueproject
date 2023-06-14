@@ -1,28 +1,36 @@
 const express = require('express');
+const bcrypt = require('bcrypt');
 const router = express.Router();
 
 const Signup = require('../Models/userSchema');
 
 // POST /api/login
-router.post('/signup', async (req, res) => {
-  console.log(req.body)
+router.post('/login', async (req, res) => {
+  console.log(req.body);
   const { email, password } = req.body;
 
   try {
-    // Check if user exists in the database
+    // console.log(email)
     const user = await Signup.findOne({ email });
 
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    // Compare password with the stored hash
-    if (password === user.password) {
-      req.session.user = user;
-      // Passwords match, login successful
-      return res.status(200).json({ message: 'Login successful' });
+    const passwordMatch = await bcrypt.compare(password, user.password);
+
+    if (passwordMatch) {
+      // console.log(passwordMatch)
+      // console.log(res)
+      // console.log(res)
+      res.cookie('logincookie', user.email, { httpOnly: true });
+      console.log('Cookie set:', user.email);
+      // res.cookie('myCookie', 'Hello, World!', { httpOnly: true });
+      //  res.cookie('user', user);
+      // res.cookie('user', user, { httpOnly: true });
+      
+       return res.status(200).json({ message: 'Login successful' });
     } else {
-      // Passwords do not match, login failed
       return res.status(401).json({ error: 'Invalid credentials' });
     }
   } catch (error) {
@@ -30,5 +38,4 @@ router.post('/signup', async (req, res) => {
     return res.status(500).json({ error: 'Error logging in' });
   }
 });
-
 module.exports = router;

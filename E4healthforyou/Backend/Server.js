@@ -1,26 +1,47 @@
 const express = require('express');
-const session = require('express-session');
+const cookieParser = require('cookie-parser');
+// const session = require('express-session');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 // const mongoose = require('mongoose');
 const { connectToDatabase } = require('../middleware/db');
 // const Signup = require('../Models/userSchema');
- const login = require('../routes/login');
+const login = require('../routes/login');
 const signup = require('../routes/signup');
+// const protect = require('../routes/protect');
 
 app.use(cors());
 app.use(bodyParser.json());
+  app.use(cookieParser());
 
 // app.use(session({
 //   secret: 'azhar456', // Replace with a secure secret key
 //   resave: false,
 //   saveUninitialized: true,
 // }));
+// app.get('/set-cookie', (req, res) => {
+//   res.cookie('myCookie', 'Hello, World!');
+//   res.send('Cookie set!');
+// });
 
 connectToDatabase();
 
-// db.connection
+
+
+// app.use('/api', protect);
+app.use('/api', signup);
+app.use('/api', login);
+// app.use(cookieParser());
+// connectToDatabase();
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+  // })
+  // .catch((error) => {
+  //   console.log('Failed to connect to MongoDB:', error.message);
+  // });
+  // db.connection
 //   .once('open', () => {
 //   //   console.log('Connected to MongoDB');
 //   // })
@@ -60,18 +81,16 @@ connectToDatabase();
     //     return res.status(500).json({ error: 'Error signing up' });
     //   }
     // });
-    
-    app.use('/api', signup);
-    app.use('/api', login);
-
-    app.listen(3000, () => {
-      console.log('Server is running on port 3000');
-    });
-  // })
-  // .catch((error) => {
-  //   console.log('Failed to connect to MongoDB:', error.message);
-  // });
-
+    // app.use(session({
+//   secret: 'azhar456', // Replace with a secure secret key
+//   resave: false,
+//   saveUninitialized: true,
+// }));
+// app.use(session({
+//   secret: 'azhar456', // Replace with a secure secret key
+//   resave: false,
+//   saveUninitialized: true,
+// }));
 
 
 
