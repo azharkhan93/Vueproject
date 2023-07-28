@@ -1,30 +1,86 @@
 <template>
-    <div class="vue-tempalte">
-        <form>
-            <h3>Forgot Password</h3>
-            <div class="form-group">
-                <label>Email address</label>
-                <input type="email" class="form-control form-control-lg" />
-            </div>
-            <button type="submit" class="btn btn-dark btn-lg btn-block">Reset password</button>
-        </form>
-    </div>
-</template>
+  <div class="vue-tempalte">
+    <form @submit="resetPassword">
+      <h3>Forgot Password</h3>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" class="form-control form-control-lg" v-model="email" />
+      </div>
+      <button type="submit" class="btn btn-dark btn-lg btn-block">Reset password</button>
+    </form>
+  </div>
+</template> 
+<!-- <template>
+  <div class="vue-template">
+    <form @submit="resetPassword">
+      <h3>Forgot Password</h3>
+      <div class="form-group">
+        <label>Email address</label>
+        <input type="email" class="form-control form-control-lg" v-model="email" />
+      </div>
+      <button type="submit" class="btn btn-dark btn-lg btn-block">Reset password</button>
+    </form>
+  </div>
+</template> -->
+
 <script>
 import { RouterLink } from 'vue-router';
+import axios from 'axios';
 
 export default {
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    RouterLink
-  }
-};
-    
-//   export default {
-    // eslint-disable-next-line vue/multi-word-component-names
-//     name:'Forgotpassword'
+    RouterLink,
+  },
+  data() {
+    return {
+      email: '',
+    };
 
-//   }
+  },
+  created() {
+  // Access the token from the route params
+  const token = this.$route.params.token;
+  console.log('Token:', token);
+  // Use the token for further processing
+},
+
+  // created() {
+  //   // Access the token from the query parameter
+  //   const token = this.$route.query.token;
+  //   console.log('Token:', token);
+  //   // Use the token for further processing
+  // },
+  methods: {
+    async resetPassword(event) {
+      event.preventDefault();
+
+      // Send a request to the backend to initiate password reset
+      try {
+        const response = await axios.post('http://localhost:3000/api/forgotpassword', { email: this.email });
+        console.log(response.data)
+        const token = response.data.token;
+        // this.$router.push('/resetPass/' + token);
+
+        // this.$router.push({
+        //   name: 'resetPass',
+        //   params: { token: "6c1a739c872c07cf5f3ea25b95d386e54f447b3ce6cc7cdb6e89872eaff7853c" }
+        // });
+        this.$router.push({
+          name: '/resetPass',
+          params: { token: token }
+        },{ withCredentials: true });
+
+      } catch (error) {
+        // console.log(error.response.data);
+        // this.$router.push('/resetPass');  // Optional: Handle error response
+      }
+
+      // Reset the email input field after submission
+      this.email = '';
+    },
+  },
+};
 </script>
 <style scoped>
 .vue-tempalte {
@@ -84,11 +140,13 @@ button.btn {
   font-size: 1.5em;
   color: #222222;
 }
+
 .social-icons ul {
   list-style: none;
   margin: 0;
   padding: 0;
 }
+
 .social-icons ul li {
   display: inline-block;
   zoom: 1;
@@ -101,12 +159,14 @@ button.btn {
   margin-right: 5px;
   background: #f4f6ff;
 }
+
 .social-icons ul li a {
   display: block;
   font-size: 1.4em;
   margin: 0 5px;
   text-decoration: none;
 }
+
 .social-icons ul li a i {
   -webkit-transition: all 0.2s ease-in;
   -moz-transition: all 0.2s ease-in;
@@ -114,10 +174,10 @@ button.btn {
   -ms-transition: all 0.2s ease-in;
   transition: all 0.2s ease-in;
 }
+
 .social-icons ul li a:focus i,
 .social-icons ul li a:active i {
   transition: none;
   color: #222222;
 }
-
 </style>

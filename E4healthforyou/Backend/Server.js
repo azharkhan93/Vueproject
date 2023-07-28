@@ -4,34 +4,40 @@ const cookieParser = require('cookie-parser');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
-// const mongoose = require('mongoose');
 const { connectToDatabase } = require('../middleware/db');
-// const Signup = require('../Models/userSchema');
 const login = require('../routes/login');
 const signup = require('../routes/signup');
+const forgotpassword = require('../routes/forgotpassword');
+ const passwordreset = require('../routes/passwordreset');
+ const Getpatients = require('../routes/getpatients');
+//  const patient = require('../routes/patient');
+//  const Getpatients = require('../routes/getpatients');
+//  const updatepatient = require('../routes/updatepatient');
+//  const Getpatientid = require('../routes/getpatients');
 // const protect = require('../routes/protect');
 
-app.use(cors());
-app.use(bodyParser.json());
-  app.use(cookieParser());
 
-// app.use(session({
-//   secret: 'azhar456', // Replace with a secure secret key
-//   resave: false,
-//   saveUninitialized: true,
-// }));
-// app.get('/set-cookie', (req, res) => {
-//   res.cookie('myCookie', 'Hello, World!');
-//   res.send('Cookie set!');
-// });
+app.use(bodyParser.json());
+app.use(express.json());
+
+
+app.use(cookieParser());
 
 connectToDatabase();
+app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
 
 
 
 // app.use('/api', protect);
 app.use('/api', signup);
 app.use('/api', login);
+app.use('/api', forgotpassword);
+app.use('/api', passwordreset);
+// app.use('/api', patient);
+app.use('/api', Getpatients);
+// app.use('/api', patient);
+// app.use('/api', updatepatient);
+
 // app.use(cookieParser());
 // connectToDatabase();
 app.listen(3000, () => {

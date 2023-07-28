@@ -9,10 +9,19 @@ const signupSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    match: /^\S+@\S+\.\S+$/,
   },
   password: {
     type: String,
     required: true,
+  },
+  
+  token: {
+    type: String,
+    default: function () {
+      return crypto.randomBytes(32).toString('hex');
+    },
+    
   },
 });
 

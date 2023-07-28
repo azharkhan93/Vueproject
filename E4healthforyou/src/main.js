@@ -1,14 +1,11 @@
-// import './assets/main.css'
-//  import Vue from 'vue';
-// import VueToastify from 'vue-toastify';
-
-
- import { createApp } from 'vue'
+import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router/index.js'
 import 'bootstrap/dist/css/bootstrap.css';
-// import { toast } from 'vue3-toastify';
-// import 'vue3-toastify/dist/index.css';
+// import 'bootstrap-vue/dist/bootstrap-vue.css'
+// import { BModal } from 'bootstrap-vue';
+import VueCookies from 'vue-cookies';
+// import { BButton, BModal, BFormInput, BFormGroup } from 'bootstrap-vue';
 
 
 
@@ -19,15 +16,20 @@ import 'bootstrap/dist/css/bootstrap.css';
 
 
 
-const app = createApp(App)
 
-app.use(router)
 
-// app.use(Vue3Toastify, {
-//     autoClose: 3000,
-//   } as ToastProgrammatic );
-//  app.use(toast) 
 
+const app = createApp(App);
+// app.component('BButton', BButton);
+// app.component('BModal', BModal);
+// app.component('BFormInput', BFormInput);
+// app.component('BFormGroup', BFormGroup);
+
+app.use(router);
+
+// app.component('custmoreRegistration', BModal);
+
+app.use(VueCookies);
 
 app.mount('#app')
 // import Vue from 'vue';

@@ -1,41 +1,57 @@
-import { createRouter, createWebHistory } from 'vue-router'
-// import HomeView from '../views/HomeView.vue'
-// import Signup from '../views/Signup.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+
 import Signup from '../components/Signup.vue';
 import Login from '../components/Login.vue';
 
 import ForgotPassword from '../components/ForgotPassword.vue';
-
+import customer from '../components/customer.vue';
+import resetPass from '../components/resetPass.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    
-      {
-        path: '/',
-        name: 'Signup',
-        component: Signup,
-      },
-      {
-      path: '/Login', 
+
+    {
+      path: '/',
+      name: 'Signup',
+      component: Signup,
+    },
+    {
+      path: '/Login',
       name: 'Login',
       component: Login,
-    },
-      {
-        path: '/Forgotpassword',
-        name: 'Forgotpassword',
-        component: ForgotPassword,
-      },
-    
-    // {
-    //   path: '/about',
-    //   name: 'about',
       
-    //   component: () => import('../views/AboutView.vue')
-    // }
-  ]
-})
+    },
+    
+      
+    {
+      path: '/Forgotpassword',
+      name: 'Forgotpassword',
+      component: ForgotPassword,
+    },
+    
+    {
+      path: '/customer', // Add the parameter for patient ID
+      name: 'customer',
+      component: customer,
+    },
+    {
 
-export default router
+
+      
+        path: '/resetPass',
+        name: 'resetPass',
+        component: resetPass,
+        
+      
+        
+    },
+
+    
+  ]
+});
+
+
+export default router;
 
 
 
