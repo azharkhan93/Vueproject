@@ -1,16 +1,19 @@
 {
   "name": "e4healthforyou",
   "version": "0.0.0",
+  "main": "main.js",
   "private": true,
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
+    "start": "concurrently \"cross-env VITE_ELECTRON=true vite\" \"cross-env VITE_ELECTRON=true electron .\"",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
+    "autoprefixer": "^10.4.14",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "body-parser": "^1.20.2",
@@ -26,6 +29,7 @@
     "mongoose": "^7.2.3",
     "nodemailer": "^6.9.3",
     "nodemon": "^2.0.22",
+    "postcss": "^8.4.27",
     "vue": "^3.2.36",
     "vue-bs-modal": "^0.7.9",
     "vue-cookies": "^1.8.3",
@@ -39,6 +43,9 @@
     "@vitejs/plugin-vue": "^4.2.3",
     "@vitejs/plugin-vue-jsx": "^3.0.1",
     "@vue/eslint-config-prettier": "^7.1.0",
+    "concurrently": "^8.2.0",
+    "cross-env": "^7.0.3",
+    "electron": "^25.4.0",
     "eslint": "^8.39.0",
     "eslint-plugin-vue": "^9.11.0",
     "prettier": "^2.8.8",

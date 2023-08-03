@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
@@ -12,14 +13,11 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  // optimizeDeps: {
-  //   exclude: ['bootstrap-vue']
-  // }
+  server: {
+    // Allow Electron to access the Vite development server if VITE_ELECTRON is set to true
+    strictPort: !process.env.VITE_ELECTRON,
+    
+  },
 });
-// {
-//   "compilerOptions": {
-//     "types": [
-//       "vue3-toastify/global"
-//     ]
-//   }
-// }
+
+
